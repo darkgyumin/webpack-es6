@@ -1,11 +1,12 @@
 const webpack = require('webpack');
+const WebpackBrowserPlugin = require('webpack-browser-plugin');
 const path = require('path');
 
 module.exports = {
     entry: './app/main.js',
     output: {
         path: path.resolve(__dirname, 'build'),
-        publicPath: '/assets/',
+        publicPath: '/',
         filename: 'bundle.js'
     },
     module: {
@@ -19,7 +20,8 @@ module.exports = {
         contentBase: "./build",
         hot: true,
         inline: true,
-        lazy: false
+        lazy: false,
+        port: 9000
     },
     plugins: process.env.NODE_ENV === 'production'? [] : [
             new webpack.optimize.UglifyJsPlugin({
@@ -30,6 +32,11 @@ module.exports = {
                     comments: false
                 }
             }),
-            new webpack.HotModuleReplacementPlugin()
+            new webpack.HotModuleReplacementPlugin(),
+            new WebpackBrowserPlugin({
+                browser: 'Chrome',
+                port: 9000,
+                url: 'http://127.0.0.1'
+            })
         ]
 };
