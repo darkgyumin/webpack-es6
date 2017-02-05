@@ -1,3 +1,5 @@
 npm start
 
-# https://webpack.js.org/configuration/dev-server/
+npm build
+
+https://webpack.js.org/configuration/dev-server/
